@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kit de búsqueda de trabajo · 4T Management Solutions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#22255A; --navy-deep:#191b40; --navy-tint:#eef0f7;
+    --mustard:#D8A828; --mustard-tint:#fbf1d6;
+    --green:#6FA52C; --green-tint:#eef5e1;
+    --red:#C0463C;
+    --bg:#F6F7FA; --surface:#ffffff;
+    --ink:#2a2c4d; --ink-soft:#6b6e88;
+    --line:#e4e6ef; --line2:#cfd2e0;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0; background:var(--bg); color:var(--ink); font-family:"IBM Plex Sans",system-ui,-apple-system,Segoe UI,Roboto,sans-serif; line-height:1.62; -webkit-font-smoothing:antialiased;}
+  h1,h2,h3,h4{font-family:"Archivo",system-ui,sans-serif; color:var(--navy); line-height:1.12; letter-spacing:-.015em; margin:0;}
+  p{margin:0 0 .9rem}
+  a{color:inherit}
+  .wrap{max-width:880px; margin:0 auto; padding:0 22px;}
+
+  .site-header{position:sticky; top:0; z-index:50; background:rgba(255,255,255,.88); backdrop-filter:saturate(150%) blur(10px); border-bottom:1px solid var(--line);}
+  .site-header .wrap{display:flex; align-items:center; justify-content:space-between; gap:14px; padding-top:12px; padding-bottom:12px;}
+  .brand{display:flex; align-items:center; gap:11px; text-decoration:none}
+  .brand-mark{width:38px; height:38px; border-radius:9px; background:var(--mustard); display:grid; place-items:center; color:var(--navy); font-family:"Archivo"; font-weight:800; font-size:1rem; flex:none;}
+  .brand-name b{display:block; font-family:"Archivo"; font-weight:700; color:var(--navy); font-size:.95rem; line-height:1.1}
+  .brand-name span{display:block; font-size:.72rem; color:var(--ink-soft); letter-spacing:.02em}
+  .btn-word{border:0; cursor:pointer; background:var(--green); color:#fff; font-family:"IBM Plex Sans"; font-weight:600; font-size:.86rem; padding:.6rem .95rem; border-radius:10px; display:inline-flex; align-items:center; gap:.45rem; transition:filter .12s ease;}
+  .btn-word:hover{filter:brightness(1.05)} .btn-word:active{transform:translateY(1px)}
+  .btn-word svg{width:15px;height:15px}
+
+  .hero{margin:26px 0 22px; background:var(--navy); color:#fff; border-radius:20px; padding:clamp(26px,5vw,46px); background-image:radial-gradient(120% 130% at 100% 0%, rgba(216,168,40,.18), transparent 55%);}
+  .eyebrow{font-size:.74rem; letter-spacing:.16em; text-transform:uppercase; color:var(--mustard); font-weight:600; margin:0 0 14px}
+  .hero h1{color:#fff; font-size:clamp(2rem,5.4vw,3.1rem); font-weight:800; margin-bottom:14px}
+  .hero .lead{font-size:clamp(1.05rem,2.4vw,1.28rem); color:#fff; max-width:60ch; margin-bottom:.7rem}
+  .hero .sub{color:#c8cade; max-width:64ch; margin-bottom:1.4rem}
+  .howto{list-style:none; margin:0 0 1.4rem; padding:0; display:grid; gap:8px; max-width:64ch}
+  .howto li{display:flex; gap:.6rem; color:#d7d9ea; font-size:.92rem}
+  .howto b{color:var(--mustard); font-family:"Archivo"; font-weight:700; flex:none}
+  .index{display:flex; flex-wrap:wrap; gap:8px}
+  .index a{text-decoration:none; font-size:.8rem; font-weight:500; color:#dfe1f0; border:1px solid rgba(255,255,255,.22); padding:.35rem .7rem; border-radius:999px; transition:.14s;}
+  .index a:hover{background:rgba(255,255,255,.1); border-color:var(--mustard); color:#fff}
+
+  .notice{background:var(--surface); border:1px solid var(--line); border-left:5px solid var(--mustard); border-radius:14px; padding:20px 22px; margin-bottom:30px;}
+  .notice h3{font-size:1rem; margin-bottom:.5rem; display:flex; align-items:center; gap:.5rem}
+  .notice h3 svg{width:17px;height:17px;color:var(--mustard)}
+  .notice p{font-size:.9rem; color:var(--ink-soft); margin-bottom:.85rem}
+
+  .step{background:var(--surface); border:1px solid var(--line); border-radius:18px; padding:clamp(22px,3.5vw,36px); margin-bottom:24px; scroll-margin-top:84px;}
+  .step-head{margin-bottom:18px}
+  .step-no{font-size:.74rem; letter-spacing:.14em; text-transform:uppercase; color:var(--mustard); font-weight:600}
+  .step h2{font-size:clamp(1.4rem,3vw,1.85rem); font-weight:800; margin:.25rem 0 0}
+  .step-kicker{color:var(--ink-soft); margin-top:.5rem; font-size:.98rem}
+
+  .block-label{display:inline-flex; align-items:center; gap:.45rem; font-size:.72rem; letter-spacing:.13em; text-transform:uppercase; font-weight:600; padding:.28rem .6rem; border-radius:7px; margin-bottom:.9rem;}
+  .block-label.metodo{background:var(--navy-tint); color:var(--navy)}
+  .block-label.ejercicio{background:var(--green-tint); color:#4d7a17}
+  .block-label .dot{width:7px;height:7px;border-radius:50%}
+  .metodo .dot{background:var(--navy)} .ejercicio .dot{background:var(--green)}
+  .method{margin-bottom:26px}
+  .method p{font-size:.97rem}
+  .exercise{border-top:1px dashed var(--line2); padding-top:24px}
+
+  .quote{border-left:4px solid var(--mustard); padding:.4rem 0 .4rem 1rem; margin:1rem 0; font-style:italic; color:var(--navy); font-size:1.02rem}
+  .quote cite{display:block; font-style:normal; font-size:.82rem; color:var(--ink-soft); margin-top:.3rem}
+
+  .onto{background:var(--navy-tint); border-left:4px solid var(--navy); border-radius:0 10px 10px 0; padding:13px 15px; margin:.7rem 0 1.1rem; font-size:.93rem;}
+  .onto .tag{display:block; font-size:.68rem; letter-spacing:.13em; text-transform:uppercase; color:var(--navy); font-weight:700; margin-bottom:.35rem; opacity:.8}
+  .onto b{color:var(--navy)}
+
+  .ikigai-wrap{display:flex; justify-content:center; margin:1.1rem 0 .6rem}
+  .ikigai-wrap svg{width:100%; max-width:450px; height:auto}
+  .ikigai-cap{text-align:center; font-size:.82rem; color:var(--ink-soft); margin:.2rem 0 0}
+
+  .struct{background:#f4f5fa; border:1px solid var(--line); border-radius:11px; padding:14px 16px; margin:.5rem 0 1rem}
+  .struct .struct-h{font-weight:600; color:var(--navy); font-size:.9rem; margin-bottom:.3rem}
+  .struct ul{margin:.3rem 0 0; padding-left:1.15rem} .struct li{margin:.25rem 0; font-size:.9rem}
+
+  .field-group{margin-bottom:18px}
+  .field-group:last-child{margin-bottom:0}
+  .field-label{display:block; font-weight:600; color:var(--navy); font-size:.92rem; margin-bottom:.4rem}
+  .field-hint{font-weight:400; color:var(--ink-soft); font-size:.85rem}
+  textarea.field, input.field{width:100%; font-family:inherit; font-size:.95rem; color:var(--ink); background:#fff; border:1px solid var(--line2); border-radius:11px; padding:11px 13px; resize:none; overflow:hidden; transition:border-color .14s, box-shadow .14s; line-height:1.55;}
+  textarea.field{min-height:58px}
+  input.field{height:46px}
+  textarea.field:focus, input.field:focus{outline:none; border-color:var(--mustard); box-shadow:0 0 0 3px rgba(216,168,40,.18)}
+  .sub-h{font-family:"Archivo"; font-weight:700; color:var(--navy); font-size:1.02rem; margin:24px 0 4px}
+  .sub-h .pair{font-family:"IBM Plex Sans"; font-weight:400; color:var(--ink-soft); font-size:.85rem; display:block; margin-top:.1rem}
+  .syn-label{font-weight:600; color:#4d7a17; font-size:.9rem; margin:.4rem 0 .35rem}
+
+  .anchor-input{background:var(--mustard-tint); border:1px solid #ecd9a3; border-radius:14px; padding:18px; margin-top:6px}
+  .anchor-input .field-label{color:#8a6a12}
+  .anchor-formula{font-size:.85rem; color:#7a5f15; background:#fff7e3; border-radius:9px; padding:10px 12px; margin:.2rem 0 .8rem; border:1px solid #f0e0b4}
+  .anchor-formula code{font-family:"IBM Plex Mono"; color:var(--navy)}
+  .anchor-example{font-size:.82rem; color:var(--ink-soft); margin-top:.6rem}
+  .anchor-card{background:var(--navy); color:#fff; border-radius:14px; padding:18px 20px; margin-bottom:26px; display:flex; flex-direction:column; gap:.35rem;}
+  .anchor-card .ac-label{font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; color:var(--mustard); font-weight:600}
+  .anchor-card .anchor-echo{font-family:"Archivo"; font-weight:700; font-size:1.12rem; color:#fff; line-height:1.3}
+  .anchor-card .anchor-echo.is-empty{color:#8d90ab; font-family:"IBM Plex Sans"; font-weight:400; font-size:.95rem}
+
+  .ex{display:grid; gap:10px; margin:6px 0 10px}
+  .ex-item{display:flex; gap:.7rem; align-items:flex-start; padding:11px 14px; border-radius:11px; font-size:.92rem}
+  .ex-bad{background:#fbf0ef; border:1px solid #f0d4d0}
+  .ex-good{background:var(--green-tint); border:1px solid #d3e6b5}
+  .ex-tag{flex:none; width:20px; height:20px; border-radius:6px; display:grid; place-items:center; color:#fff; font-weight:700; font-size:.8rem; margin-top:1px}
+  .ex-bad .ex-tag{background:var(--red)} .ex-good .ex-tag{background:var(--green)}
+  .ex-item span.t{color:var(--ink)}
+
+  .tpl{border:1px solid var(--line); border-radius:13px; overflow:hidden; margin:14px 0 6px; background:#fbfbfd}
+  .tpl-bar{display:flex; align-items:center; justify-content:space-between; padding:9px 12px; background:var(--navy-tint); border-bottom:1px solid var(--line)}
+  .tpl-tag{font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--navy); font-weight:600}
+  .copy{border:1px solid var(--green); background:#fff; color:#4d7a17; cursor:pointer; font-family:"IBM Plex Sans"; font-weight:600; font-size:.78rem; padding:.32rem .7rem; border-radius:8px; transition:.14s;}
+  .copy:hover{background:var(--green-tint)} .copy.ok{background:var(--green); color:#fff; border-color:var(--green)}
+  pre.tpl-pre{margin:0; padding:16px; font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:.84rem; color:var(--ink); white-space:pre-wrap; word-break:break-word; line-height:1.65;}
+  pre.tpl-pre .anchor-echo{color:var(--navy); font-weight:600; background:var(--mustard-tint); padding:0 .2em; border-radius:3px}
+  pre.tpl-pre .anchor-echo.is-empty{color:#9a6f12; background:transparent; font-style:italic}
+  .tpl-note{font-size:.82rem; color:var(--ink-soft); margin-top:.5rem}
+
+  #checklist-list{display:grid; gap:2px}
+  .check{display:flex; gap:.7rem; align-items:flex-start; cursor:pointer; padding:.45rem 0; position:relative}
+  .check input{position:absolute; opacity:0; width:1px; height:1px}
+  .check-box{width:22px; height:22px; border:2px solid var(--line2); border-radius:6px; flex:none; margin-top:1px; display:grid; place-items:center; background:#fff; transition:.15s;}
+  .check-box::after{content:""; width:11px; height:6px; border-left:2.6px solid #fff; border-bottom:2.6px solid #fff; transform:rotate(-45deg) scale(0); transition:.15s; margin-top:-2px}
+  .check input:checked ~ .check-box{background:var(--green); border-color:var(--green)}
+  .check input:checked ~ .check-box::after{transform:rotate(-45deg) scale(1)}
+  .check-text{font-size:.93rem; color:var(--ink)}
+  .check input:checked ~ .check-text{color:var(--ink-soft); text-decoration:line-through; text-decoration-color:var(--green)}
+  .check input:focus-visible ~ .check-box{outline:3px solid rgba(216,168,40,.5); outline-offset:2px}
+
+  .crm-card{background:var(--green-tint); border:1px solid #d3e6b5; border-radius:14px; padding:18px 20px; margin:.4rem 0}
+  .crm-card h4{font-family:"Archivo"; color:#3f6614; margin:0 0 .4rem; font-size:1.08rem}
+  .crm-card p{font-size:.93rem; color:#3f5226}
+  .crm-states{display:flex; flex-wrap:wrap; gap:6px; margin:.7rem 0 0}
+  .crm-states span{font-size:.78rem; background:#fff; border:1px solid #cfe0b3; color:#4d7a17; padding:.25rem .55rem; border-radius:999px}
+  .btn-dl{display:inline-flex; align-items:center; gap:.5rem; margin-top:1rem; background:var(--navy); color:#fff; text-decoration:none; font-family:"IBM Plex Sans"; font-weight:600; font-size:.9rem; padding:.7rem 1.1rem; border-radius:10px; transition:filter .12s ease;}
+  .btn-dl:hover{filter:brightness(1.1)}
+  .btn-dl svg{width:16px;height:16px}
+
+  .cta{background:var(--navy); color:#fff; border-radius:18px; padding:clamp(24px,4vw,38px); margin-bottom:22px; scroll-margin-top:84px}
+  .cta h2{color:#fff; font-size:clamp(1.3rem,2.6vw,1.7rem); margin-bottom:.7rem}
+  .cta p{color:#cfd1e4; max-width:62ch}
+  .cta .contact{font-family:"Archivo"; font-weight:700; color:var(--mustard); margin:1rem 0 1.3rem; font-size:1rem}
+  .cta .contact .ph{color:#bfc2da; font-weight:400; font-family:"IBM Plex Sans"}
+  .btn-word-lg{border:0; cursor:pointer; background:var(--mustard); color:var(--navy); font-family:"Archivo"; font-weight:700; font-size:1rem; padding:.85rem 1.4rem; border-radius:12px; display:inline-flex; align-items:center; gap:.55rem; transition:.14s;}
+  .btn-word-lg:hover{filter:brightness(1.05)} .btn-word-lg:active{transform:translateY(1px)}
+  .btn-word-lg svg{width:17px;height:17px}
+
+  .foot{text-align:center; color:var(--ink-soft); font-size:.82rem; padding:8px 0 48px; max-width:62ch; margin:0 auto}
+
+  @media (max-width:620px){ .brand-name span{display:none} .btn-word .lbl-full{display:none} }
+  @media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} *{transition:none!important} }
+
+  @media print{
+    body{background:#fff}
+    .site-header,.index,.copy,.btn-word,.btn-word-lg,.btn-dl,.howto,.tpl-bar{display:none!important}
+    .hero{background:#fff!important; color:#000!important; border:1px solid #bbb; background-image:none!important}
+    .hero h1,.hero .lead,.hero .sub,.eyebrow{color:#000!important}
+    .step,.notice,.cta,.tpl,.crm-card,.onto{border:1px solid #ccc!important; box-shadow:none!important; break-inside:avoid; page-break-inside:avoid; background:#fff!important; color:#000!important}
+    .cta h2,.cta p,.cta .contact{color:#000!important}
+    .anchor-card{background:#fff!important; border:1px solid #999; color:#000!important}
+    .anchor-card .ac-label,.anchor-card .anchor-echo{color:#000!important}
+    textarea.field,input.field{border:1px solid #aaa!important}
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="#top">
+      <span class="brand-mark">4T</span>
+      <span class="brand-name"><b>4T Management Solutions</b><span>Coaching · Búsqueda de trabajo</span></span>
+    </a>
+    <button type="button" class="btn-word" onclick="downloadWord()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      <span class="lbl-full">Descargar en Word</span>
+    </button>
+  </div>
+</header>
+
+<main class="wrap" id="top">
+
+  <section class="hero">
+    <p class="eyebrow">4T Management Solutions · Guía para coachees</p>
+    <h1>Kit de búsqueda de trabajo</h1>
+    <p class="lead">La mayoría de los CV se descartan en menos de 30 segundos. Rara vez por falta de talento: casi siempre por falta de foco.</p>
+    <p class="sub">Este kit ordena tu búsqueda paso a paso. Primero defines tu propósito y tu foco con Ikigai; después construyes cada herramienta —CV, cartas y correos— apuntando a lo mismo, y la sigues con un CRM propio.</p>
+    <ul class="howto">
+      <li><b>1.</b><span>Parte por el Paso 1: define tu propósito y tu frase ancla.</span></li>
+      <li><b>2.</b><span>Usa esa frase en cada herramienta. Copia las plantillas y reemplaza lo que está entre [corchetes].</span></li>
+      <li><b>3.</b><span>Lleva el control en tu CRM y descarga todo en Word para seguir trabajándolo.</span></li>
+    </ul>
+    <nav class="index">
+      <a href="#paso1">1 · Propósito</a>
+      <a href="#paso2">2 · CV</a>
+      <a href="#paso3">3 · Carta</a>
+      <a href="#paso4">4 · Empresas</a>
+      <a href="#paso5">5 · Headhunters</a>
+      <a href="#paso6">6 · LinkedIn</a>
+      <a href="#checklist">Checklist</a>
+      <a href="#paso7">7 · CRM</a>
+    </nav>
+  </section>
+
+  <section class="notice">
+    <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Sobre el uso de esta guía</h3>
+    <p>Esta guía es una herramienta de trabajo del proceso de coaching con Yael Sescovich (4T Management Solutions). Lo que completes acá es material tuyo para tu búsqueda y, como parte del proceso, se comparte con Yael para trabajarlo en conjunto. No se publica ni se usa para difusión ni para ningún fin fuera del acompañamiento.</p>
+    <p><strong style="color:var(--navy)">Sobre el uso de la IA.</strong> Puedes apoyarte en inteligencia artificial para ordenar ideas o pulir un texto, pero no para reemplazar tu reflexión. El centro de esta guía es tu autenticidad: las respuestas deben salir de tu propia conciencia, no de un modelo. Úsala como apoyo; la esencia es tuya. Si dejas que piense por ti, el resultado suena a cualquiera y se pierde el objetivo, que es que postules siendo tú.</p>
+    <label class="check">
+      <input type="checkbox">
+      <span class="check-box"></span>
+      <span class="check-text">Entiendo y autorizo que la información que complete se comparta con Yael Sescovich como parte de este proceso de coaching.</span>
+    </label>
+  </section>
+
+  <!-- PASO 1 -->
+  <section class="step" id="paso1">
+    <div class="step-head">
+      <span class="step-no">Paso 1 · 7</span>
+      <h2>Define tu propósito y tu foco hoy</h2>
+      <p class="step-kicker">Antes de tocar el CV, decide desde dónde te vas a parar.</p>
+    </div>
+
+    <div class="method">
+      <span class="block-label metodo"><span class="dot"></span>El método</span>
+      <p>Desde el coaching ontológico, una idea simple cambia todo: <strong>no vemos el mundo como es, lo vemos como somos.</strong> Dos personas con el mismo CV consiguen resultados distintos según cómo se paran, qué declaran sobre sí mismas y qué conversaciones se atreven a tener. Muchas búsquedas empiezan en un quiebre —algo dejó de funcionar o quieres que sea distinto—, y un quiebre, bien mirado, abre espacio para aprender y diseñar lo que viene. Tu propósito da la dirección; las herramientas de los pasos siguientes son la forma de coordinar acciones para llegar.</p>
+
+      <h4 style="margin:1.4rem 0 .2rem; font-size:1.05rem">El mapa: Ikigai</h4>
+      <p class="quote">Una persona sin propósito es como un barco sin timón.<cite>Thomas Carlyle</cite></p>
+      <p>Ikigai es un concepto japonés que se traduce como tu razón de ser: aquello que da valor a tus días. Aparece en el cruce de cuatro preguntas.</p>
+
+      <div class="ikigai-wrap">
+        <svg viewBox="0 0 560 560" role="img" aria-label="Diagrama de Ikigai: lo que amas, en lo que eres bueno, lo que el mundo necesita y por lo que te pueden pagar; en el centro, tu foco.">
+          <circle cx="280" cy="190" r="158" fill="#D8A828" fill-opacity="0.42"/>
+          <circle cx="185" cy="290" r="158" fill="#6E8BD6" fill-opacity="0.42"/>
+          <circle cx="375" cy="290" r="158" fill="#6FA52C" fill-opacity="0.42"/>
+          <circle cx="280" cy="390" r="158" fill="#E08A6B" fill-opacity="0.42"/>
+          <g font-family="Archivo, sans-serif" fill="#22255A" text-anchor="middle">
+            <text x="280" y="88" font-size="13" font-weight="700">Lo que</text>
+            <text x="280" y="105" font-size="13" font-weight="700">AMAS</text>
+            <text x="92" y="282" font-size="13" font-weight="700">En lo que</text>
+            <text x="92" y="299" font-size="13" font-weight="700">eres BUENO</text>
+            <text x="470" y="282" font-size="13" font-weight="700">Lo que el</text>
+            <text x="470" y="299" font-size="13" font-weight="700">mundo NECESITA</text>
+            <text x="280" y="482" font-size="13" font-weight="700">Por lo que</text>
+            <text x="280" y="499" font-size="13" font-weight="700">te PAGAN</text>
+            <text x="210" y="236" font-size="12.5" font-weight="600">Pasión</text>
+            <text x="350" y="236" font-size="12.5" font-weight="600">Misión</text>
+            <text x="202" y="350" font-size="12.5" font-weight="600">Profesión</text>
+            <text x="356" y="350" font-size="12.5" font-weight="600">Vocación</text>
+            <text x="280" y="287" font-size="17" font-weight="800">IKIGAI</text>
+            <text x="280" y="306" font-size="10" font-weight="600" fill="#3f4060">tu foco</text>
+          </g>
+        </svg>
+      </div>
+      <p class="ikigai-cap">Donde se cruzan de a dos aparecen tu pasión, misión, profesión y vocación. Al centro, tu Ikigai.</p>
+
+      <p style="margin-top:1.1rem">No necesitas tener los cuatro círculos perfectos ni alineados. El ejercicio sirve para ver con claridad desde dónde postular, y ese centro lo vamos a aterrizar en algo muy concreto: tu <strong>foco profesional</strong> y tu <strong>frase ancla</strong>.</p>
+      <div class="onto">
+        <span class="tag">Distinción del coaching</span>
+        Trabaja con <b>afirmaciones</b>, no con juicios. Una afirmación es un hecho que cualquiera podría verificar (“lideré 25 procesos”); un juicio es una opinión (“soy buena liderando”). Si fundas tus respuestas en hechos, todo lo que escribas después va a sonar verdadero, no inflado.
+      </div>
+    </div>
+
+    <div class="exercise">
+      <span class="block-label ejercicio"><span class="dot"></span>Tu ejercicio</span>
+      <p style="font-size:.92rem; color:var(--ink-soft); margin-bottom:1.2rem">Toma cada círculo por separado. Responde corto y concreto. Al final vas a sintetizar todo en una sola declaración: tu frase ancla.</p>
+
+      <div class="field-group">
+        <label class="field-label" for="nombre">Tu nombre <span class="field-hint">(se usa para el archivo y el encabezado de tu Word)</span></label>
+        <input class="field" type="text" id="nombre" placeholder="Nombre y apellido">
+      </div>
+
+      <div class="sub-h">En lo que eres bueno<span class="pair">Tus talentos, fundados en hechos.</span></div>
+      <div class="field-group">
+        <label class="field-label" for="c1-talentos">Tus 5 talentos principales. <span class="field-hint">Si quieres apoyo, busca el “Test de Gallup” (CliftonStrengths) y elige los 5 con los que más te identifiques. Nada de “no soy bueno en nada”: todos tenemos talentos que nos hacen destacar.</span></label>
+        <textarea class="field" id="c1-talentos"></textarea>
+      </div>
+      <div class="field-group">
+        <label class="field-label" for="c1-fundar">Funda cada talento: una situación concreta donde se vio y qué resultado tuvo.</label>
+        <textarea class="field" id="c1-fundar"></textarea>
+      </div>
+
+      <div class="sub-h">Lo que amas<span class="pair">Dónde aparece tu energía casi sin esfuerzo. Tu estado de ánimo es una predisposición a la acción.</span></div>
+      <div class="field-group">
+        <label class="field-label" for="c2-haria">¿Qué harías aunque no te pagaran? <span class="field-hint">Si un vecino te invitara a levantarte a las 5 am a hacerlo, ¿irías sin queja?</span></label>
+        <textarea class="field" id="c2-haria"></textarea>
+      </div>
+      <div class="field-group">
+        <label class="field-label" for="c2-tiempo">¿Qué actividad hace que el tiempo pase sin que te des cuenta? ¿Sobre qué temas lees o aprendes sin aburrirte?</label>
+        <textarea class="field" id="c2-tiempo"></textarea>
+      </div>
+      <div class="field-group">
+        <p class="syn-label">Tu pasión = lo que amas + en lo que eres bueno. En una línea:</p>
+        <textarea class="field" id="pasion"></textarea>
+      </div>
+
+      <div class="sub-h">Lo que el mundo necesita<span class="pair">El valor aparece en la mirada del otro. Mira hacia afuera.</span></div>
+      <div class="field-group">
+        <label class="field-label" for="c3-huella">¿Cómo te gustaría dejar huella? ¿Qué intentas conseguir y para quién?</label>
+        <textarea class="field" id="c3-huella"></textarea>
+      </div>
+      <div class="field-group">
+        <label class="field-label" for="c3-necesidad">Llevado al trabajo: ¿qué necesidad concreta de una empresa resuelves tú?</label>
+        <textarea class="field" id="c3-necesidad"></textarea>
+      </div>
+      <div class="field-group">
+        <p class="syn-label">Tu misión = lo que amas + lo que el mundo necesita. En una línea:</p>
+        <textarea class="field" id="mision"></textarea>
+      </div>
+
+      <div class="sub-h">Por lo que te pueden pagar<span class="pair">Acá aterrizas en compromisos y acción. El rol, el mercado, el próximo paso.</span></div>
+      <div class="field-group">
+        <label class="field-label" for="c4-rol">¿En qué áreas o roles deberías estar? ¿Qué posición buscas para dar el próximo paso?</label>
+        <textarea class="field" id="c4-rol"></textarea>
+      </div>
+      <div class="field-group">
+        <label class="field-label" for="c4-paso">¿Dónde estás hoy, cuál es el primer paso concreto para llegar y cuándo lo vas a dar?</label>
+        <textarea class="field" id="c4-paso"></textarea>
+      </div>
+      <div class="field-group">
+        <p class="syn-label">Tu profesión y vocación = lo que haces bien y por lo que te pagan, al servicio de lo que el mercado necesita. En una línea:</p>
+        <textarea class="field" id="profesion"></textarea>
+      </div>
+
+      <div class="sub-h">El centro: tu frase ancla</div>
+      <div class="onto" style="margin-top:.2rem">
+        <span class="tag">Distinción del coaching</span>
+        Una <b>declaración</b> es un acto del lenguaje que abre un futuro: cuando declaras algo, el mundo cambia. Tu frase ancla es la declaración de quién eres profesionalmente hoy. Escríbela clara y respáldala con hechos.
+      </div>
+      <div class="anchor-input">
+        <label class="field-label" for="frase-ancla">Junta todo lo anterior en una o dos frases. La vas a usar en el CV, en las cartas y en los correos. Escríbela una vez, bien.</label>
+        <div class="anchor-formula">Estructura que funciona: <code>Soy [perfil] que [resultado o valor que genero] para [tipo de empresa o contexto]. Mi diferencia es [tu fortaleza distintiva].</code></div>
+        <textarea class="field" id="frase-ancla" placeholder="Escribe tu frase ancla acá…"></textarea>
+        <p class="anchor-example"><strong>Ejemplo:</strong> Especialista en operaciones logísticas que reduce costos y tiempos de entrega en empresas de retail y consumo masivo. Mi diferencia es que combino análisis de datos con manejo real de equipos en terreno.</p>
+      </div>
+
+      <div class="field-group" style="margin-top:22px">
+        <label class="field-label" for="cierre">Para cerrar el Paso 1: <span class="field-hint">¿Qué propósito te mueve hoy, qué tan claro está tu foco y qué necesitas aprender o soltar para lograrlo?</span></label>
+        <textarea class="field" id="cierre"></textarea>
+      </div>
+    </div>
+  </section>
+
+  <div class="anchor-card">
+    <span class="ac-label">Tu frase ancla</span>
+    <span class="anchor-echo is-empty" data-empty="Escribe tu frase ancla en el Paso 1 y aparecerá acá, lista para copiar donde la necesites."></span>
+  </div>
+
+  <!-- PASO 2 -->
+  <section class="step" id="paso2">
+    <div class="step-head">
+      <span class="step-no">Paso 2 · 7</span>
+      <h2>Tu CV</h2>
+      <p class="step-kicker">El documento que tiene que ganarte la llamada.</p>
+    </div>
+
+    <div class="method">
+      <span class="block-label metodo"><span class="dot"></span>El método</span>
+      <p><strong>El CV es un argumento, no un historial.</strong> Quien lo revisa le dedica menos de un minuto y busca una sola cosa: razones para llamarte. Por eso parte por un resumen con tu frase ancla y después prueba esa frase con resultados. Una página si tienes hasta 8–10 años de experiencia; dos como máximo si tienes más. Y una regla que cuesta pero funciona: adáptalo a cada postulación.</p>
+      <div class="onto">
+        <span class="tag">Distinción del coaching</span>
+        Tu CV suele estar lleno de <b>juicios</b> sobre ti —“proactiva”, “orientada a resultados”, “líder”—. Un juicio que no fundas no le mueve la aguja a nadie. La jugada es reemplazar juicios por <b>afirmaciones</b>: hechos con resultado. La fórmula del logro —verbo + qué hiciste + resultado medible— es, en el fondo, fundar tus juicios.
+      </div>
+    </div>
+
+    <div class="exercise">
+      <span class="block-label ejercicio"><span class="dot"></span>Tu ejercicio</span>
+      <p style="font-size:.92rem; color:var(--ink-soft)">Reemplaza juicios por afirmaciones con resultado. Mira la diferencia:</p>
+      <div class="ex">
+        <div class="ex-item ex-bad"><span class="ex-tag">✕</span><span class="t"><strong>Juicio:</strong> Profesional proactiva y orientada a resultados.</span></div>
+        <div class="ex-item ex-good"><span class="ex-tag">✓</span><span class="t"><strong>Afirmación:</strong> Cumplí el 112% de la meta anual liderando un equipo de 6 personas.</span></div>
+        <div class="ex-item ex-bad"><span class="ex-tag">✕</span><span class="t"><strong>Función:</strong> Encargada de la gestión de proveedores.</span></div>
+        <div class="ex-item ex-good"><span class="ex-tag">✓</span><span class="t"><strong>Afirmación:</strong> Renegocié contratos con 12 proveedores clave y reduje el costo anual en 18%.</span></div>
+        <div class="ex-item ex-bad"><span class="ex-tag">✕</span><span class="t"><strong>Función:</strong> Apoyo en procesos de selección.</span></div>
+        <div class="ex-item ex-good"><span class="ex-tag">✓</span><span class="t"><strong>Afirmación:</strong> Lideré 25 procesos de selección y bajé el tiempo de contratación de 45 a 28 días.</span></div>
+      </div>
+      <p style="font-size:.88rem; color:var(--ink-soft)">Si no tienes el número exacto, estima un rango honesto. Un resultado aproximado dice más que una función sin contexto.</p>
+
+      <div class="field-group">
+        <label class="field-label" for="cv-logros">Convierte tus 3 logros más fuertes a la fórmula, antes de armar el CV:</label>
+        <textarea class="field" id="cv-logros"></textarea>
+      </div>
+
+      <p style="font-weight:600; color:var(--navy); margin:.4rem 0 0">Estructura para armarlo</p>
+      <div class="tpl" data-title="Mi CV (borrador)">
+        <div class="tpl-bar"><span class="tpl-tag">Plantilla</span><button type="button" class="copy" onclick="copyTpl(this)"><span class="lbl">Copiar</span></button></div>
+<pre class="tpl-pre">[NOMBRE COMPLETO]
+[Cargo objetivo] · [Ciudad] · [Teléfono] · [Correo] · [LinkedIn]
+
+RESUMEN
+<span class="anchor-echo is-empty" data-empty="[Tu frase ancla]"></span> [Años de experiencia y foco principal, en una línea].
+
+EXPERIENCIA
+[Empresa] — [Cargo] · [Mes/Año – Mes/Año]
+- [Logro 1: verbo + qué hiciste + resultado]
+- [Logro 2: verbo + qué hiciste + resultado]
+- [Logro 3: verbo + qué hiciste + resultado]
+
+[Empresa anterior] — [Cargo] · [Mes/Año – Mes/Año]
+- [Logro 1]
+- [Logro 2]
+
+EDUCACIÓN
+[Título] — [Institución] · [Año]
+[Certificaciones o cursos relevantes]
+
+HABILIDADES E IDIOMAS
+[Herramientas y habilidades técnicas] · [Idiomas y nivel]</pre>
+      </div>
+      <p class="tpl-note">Ordena la experiencia de la más reciente a la más antigua y deja arriba lo que más calza con el cargo al que postulas.</p>
+    </div>
+  </section>
+
+  <!-- PASO 3 -->
+  <section class="step" id="paso3">
+    <div class="step-head">
+      <span class="step-no">Paso 3 · 7</span>
+      <h2>Carta de presentación</h2>
+      <p class="step-kicker">Corta, concreta y distinta para cada postulación.</p>
+    </div>
+
+    <div class="method">
+      <span class="block-label metodo"><span class="dot"></span>El método</span>
+      <p>La carta no repite el CV. Responde una sola pregunta: <strong>¿por qué tú, para esto?</strong> Tiene tres partes: por qué esa empresa y ese rol (algo concreto, no un saludo genérico), por qué tú (dos o tres razones con evidencia) y un cierre claro. Media página basta. Si no conoces nada de la empresa, búscalo antes: una carta genérica resta.</p>
+      <div class="onto">
+        <span class="tag">Distinción del coaching</span>
+        Mirada desde el coaching, la carta es una <b>oferta</b>: te haces cargo de algo que a esa empresa le importa. Una oferta convence cuando es concreta y cuando muestra que <b>escuchaste</b> lo que el otro necesita, no solo lo que tú quieres ofrecer.
+      </div>
+    </div>
+
+    <div class="exercise">
+      <span class="block-label ejercicio"><span class="dot"></span>Tu ejercicio</span>
+      <div class="tpl" data-title="Carta de presentación">
+        <div class="tpl-bar"><span class="tpl-tag">Plantilla</span><button type="button" class="copy" onclick="copyTpl(this)"><span class="lbl">Copiar</span></button></div>
+<pre class="tpl-pre">[Nombre de contacto o "Equipo de [Empresa]"],
+
+Les escribo por [el cargo de X / la búsqueda que tienen abierta]. [Una frase concreta de por qué esa empresa: algo que hacen, un proyecto, su posición en el mercado].
+
+<span class="anchor-echo is-empty" data-empty="[Tu frase ancla]"></span>
+
+En concreto, puedo aportar en:
+- [Razón 1 con evidencia: un logro o experiencia que calza con el rol]
+- [Razón 2 con evidencia]
+
+Adjunto mi CV. Quedo atenta/o a conversarlo cuando les acomode.
+
+[Nombre]
+[Teléfono] · [Correo]</pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- PASO 4 -->
+  <section class="step" id="paso4">
+    <div class="step-head">
+      <span class="step-no">Paso 4 · 7</span>
+      <h2>Correo directo a empresas</h2>
+      <p class="step-kicker">Cuando te interesa una empresa y no hay aviso publicado.</p>
+    </div>
+
+    <div class="method">
+      <span class="block-label metodo"><span class="dot"></span>El método</span>
+      <p>A veces la empresa que te interesa no tiene una posición abierta. Igual puedes escribir directo, pero recuerda que le llega a alguien ocupado: <strong>tiene que leerse en treinta segundos.</strong></p>
+      <div class="onto">
+        <span class="tag">Distinción del coaching</span>
+        Un correo de postulación es un <b>pedido</b> (o una oferta), y un pedido efectivo tiene cuatro piezas. Si falta una, se diluye y es fácil no responder:
+      </div>
+      <div class="struct">
+        <div class="struct-h">Las cuatro piezas de un pedido efectivo</div>
+        <ul>
+          <li><strong>Quién y a quién:</strong> tú, dirigiéndote a una persona concreta (no a “a quien corresponda”).</li>
+          <li><strong>Qué pides exactamente:</strong> una conversación, considerar tu perfil, una reunión.</li>
+          <li><strong>Para cuándo:</strong> un marco de tiempo o tu disponibilidad.</li>
+          <li><strong>En qué contexto:</strong> por qué a esa empresa y por qué tú.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exercise">
+      <span class="block-label ejercicio"><span class="dot"></span>Tu ejercicio</span>
+      <div class="tpl" data-title="Correo directo a una empresa">
+        <div class="tpl-bar"><span class="tpl-tag">Plantilla</span><button type="button" class="copy" onclick="copyTpl(this)"><span class="lbl">Copiar</span></button></div>
+<pre class="tpl-pre">Asunto: [Tu perfil] interesado/a en aportar en [área o equipo de la empresa]
+
+[Nombre o "Hola, equipo de [Empresa]"],
+
+Soy [tu perfil en una línea]. Sigo [a la empresa / al área] hace un tiempo y me interesa [razón concreta: lo que están haciendo en X].
+
+<span class="anchor-echo is-empty" data-empty="[Tu frase ancla]"></span>
+
+Si tienen o abren una posición donde esto sume, me encantaría conversarlo. Adjunto mi CV y quedo disponible [esta semana / cuando les acomode].
+
+[Nombre]
+[Teléfono] · [Correo] · [LinkedIn]</pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- PASO 5 -->
+  <section class="step" id="paso5">
+    <div class="step-head">
+      <span class="step-no">Paso 5 · 7</span>
+      <h2>Correo a headhunters</h2>
+      <p class="step-kicker">Lo que necesita ver quien arma las búsquedas.</p>
+    </div>
+
+    <div class="method">
+      <span class="block-label metodo"><span class="dot"></span>El método · desde el otro lado del correo</span>
+      <p>Te lo digo como headhunter: cuando me llega tu correo no busco tu historia, busco si calzas en alguna búsqueda que tengo abierta, ahora o más adelante. Lo que necesito ver rápido es tu perfil y nivel, qué buscas, tus años de experiencia, tu expectativa de renta (un rango está bien) y tu disponibilidad. El asunto importa más de lo que crees: si resume tu perfil en una línea, es fácil archivarte y encontrarte después.</p>
+      <div class="onto">
+        <span class="tag">Distinción del coaching</span>
+        Para un headhunter, tu correo abre (o no) una <b>coordinación de acciones</b>. Mientras más claros tus datos, más fácil es que te sume a una búsqueda. Y un consejo: no te vendas de más ni escondas datos. Lo primero se cae en la entrevista; lo segundo solo alarga el proceso.
+      </div>
+    </div>
+
+    <div class="exercise">
+      <span class="block-label ejercicio"><span class="dot"></span>Tu ejercicio</span>
+      <div class="tpl" data-title="Correo a un headhunter">
+        <div class="tpl-bar"><span class="tpl-tag">Plantilla</span><button type="button" class="copy" onclick="copyTpl(this)"><span class="lbl">Copiar</span></button></div>
+<pre class="tpl-pre">Asunto: [Cargo o perfil] · [Sector] · [Ciudad] · [Disponibilidad]
+(ejemplo: Gerente de Operaciones · Retail · Santiago · disponible en 30 días)
+
+Hola [Nombre],
+
+Te escribo por si calzo en alguna búsqueda tuya, ahora o más adelante.
+
+<span class="anchor-echo is-empty" data-empty="[Tu frase ancla]"></span>
+
+Datos para ubicarme rápido:
+- Experiencia: [X años en …]
+- Busco: [cargo o nivel], en [sector o tipo de empresa], [modalidad y ubicación]
+- Renta: [rango que esperas, bruto o líquido]
+- Disponibilidad: [inmediata / X semanas de aviso]
+
+Adjunto mi CV. Quedo atenta/o.
+
+[Nombre]
+[Teléfono] · [Correo] · [LinkedIn]</pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- PASO 6 -->
+  <section class="step" id="paso6">
+    <div class="step-head">
+      <span class="step-no">Paso 6 · 7</span>
+      <h2>LinkedIn y portales</h2>
+      <p class="step-kicker">Más corto, pensado para leerse en el teléfono.</p>
+    </div>
+
+    <div class="method">
+      <span class="block-label metodo"><span class="dot"></span>El método</span>
+      <p>En LinkedIn y en los portales todo se lee en pantalla chica, así que todo es más breve. En LinkedIn separa dos momentos: <strong>la nota cuando pides conexión</strong>, donde no pides trabajo de inmediato, y <strong>el mensaje cuando ya postulas o escribes directo.</strong> En portales como Trabajando.com, el mensaje de postulación cumple la misma función que ese segundo mensaje: directo y específico.</p>
+      <div class="onto">
+        <span class="tag">Distinción del coaching</span>
+        Cada mensaje <b>abre una conversación</b>. La nota de conexión solo busca abrir la puerta; el pedido concreto viene después, cuando ya hay confianza.
+      </div>
+    </div>
+
+    <div class="exercise">
+      <span class="block-label ejercicio"><span class="dot"></span>Tu ejercicio</span>
+
+      <p style="font-weight:600; color:var(--navy); margin:.2rem 0 0">A · Nota de solicitud de conexión</p>
+      <div class="tpl" data-title="LinkedIn — Nota de conexión">
+        <div class="tpl-bar"><span class="tpl-tag">Plantilla</span><button type="button" class="copy" onclick="copyTpl(this)"><span class="lbl">Copiar</span></button></div>
+<pre class="tpl-pre">Hola [Nombre], me interesa lo que hacen en [Empresa o área]. Trabajo en [tu perfil] y me gustaría seguir lo que comparten. Saludos, [Tu nombre].</pre>
+      </div>
+
+      <p style="font-weight:600; color:var(--navy); margin:1.2rem 0 0">B · Mensaje de postulación o contacto directo</p>
+      <div class="tpl" data-title="LinkedIn / portales — Mensaje de postulación">
+        <div class="tpl-bar"><span class="tpl-tag">Plantilla</span><button type="button" class="copy" onclick="copyTpl(this)"><span class="lbl">Copiar</span></button></div>
+<pre class="tpl-pre">Hola [Nombre],
+
+Vi [la posición de X / que están buscando Y] y me interesa.
+
+<span class="anchor-echo is-empty" data-empty="[Tu frase ancla]"></span>
+
+Te dejo mi perfil y, si calza, encantada/o de conversarlo. [Enlace a tu CV o "adjunto mi CV"].
+
+[Tu nombre]</pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHECKLIST -->
+  <section class="step" id="checklist">
+    <div class="step-head">
+      <span class="step-no">Antes de mandar</span>
+      <h2>Checklist de postulación</h2>
+      <p class="step-kicker">Revisa esto antes de enviar cada postulación.</p>
+    </div>
+    <div id="checklist-list"></div>
+  </section>
+
+  <!-- PASO 7 -->
+  <section class="step" id="paso7">
+    <div class="step-head">
+      <span class="step-no">Paso 7 · 7</span>
+      <h2>Seguimiento y tu CRM</h2>
+      <p class="step-kicker">Después de mandar, el juego es no perderle el hilo a nada.</p>
+    </div>
+
+    <div class="method">
+      <span class="block-label metodo"><span class="dot"></span>El método</span>
+      <p>Buscar trabajo es coordinar muchas acciones en el tiempo, y la mayoría de las búsquedas no se caen por falta de talento, sino por falta de seguimiento. Acá dos cosas: cómo reactivar una conversación sin sonar insistente, y cómo llevar el control de todo en un solo lugar.</p>
+      <div class="onto">
+        <span class="tag">Distinción del coaching</span>
+        Esto es <b>cerrar tus conversaciones</b>: cada pedido que hiciste merece un cierre, aunque sea un “no”. Un “no” también te deja avanzar y libera tu energía para la siguiente conversación.
+      </div>
+    </div>
+
+    <div class="exercise">
+      <span class="block-label ejercicio"><span class="dot"></span>Tu ejercicio</span>
+
+      <p style="font-weight:600; color:var(--navy); margin:.2rem 0 0">Correo de seguimiento</p>
+      <div class="tpl" data-title="Correo de seguimiento">
+        <div class="tpl-bar"><span class="tpl-tag">Plantilla</span><button type="button" class="copy" onclick="copyTpl(this)"><span class="lbl">Copiar</span></button></div>
+<pre class="tpl-pre">Asunto: Seguimiento · [Cargo] (postulación del [fecha])
+
+Hola [Nombre],
+
+Te escribí el [fecha] por [el cargo / la posición de X] y quería retomarlo brevemente.
+
+Sigo muy interesada/o y quedo disponible para conversar cuando te acomode. Si la búsqueda tomó otro rumbo, también agradezco que me lo digas: me ayuda a ordenar mis tiempos.
+
+[Nombre]
+[Teléfono] · [Correo]</pre>
+      </div>
+
+      <div class="crm-card">
+        <h4>Tu CRM de búsqueda</h4>
+        <p>Junto a este kit recibes una planilla en Excel: tu CRM. Sirve para llevar la búsqueda como un sistema, no como una pila de correos sueltos. Anota cada empresa, qué acción hiciste, en qué estado está y cuál es tu próxima acción. Revísala una vez por semana. El semáforo de estados te muestra de un vistazo dónde está cada conversación, y la hoja Resumen calcula sola tu pipeline, tus entrevistas y tu tasa de respuesta.</p>
+        <div class="crm-states">
+          <span>Identificada</span><span>Postulada</span><span>Contactada</span><span>En conversación</span><span>Entrevista</span><span>Oferta</span><span>Cerrada</span>
+        </div>
+        <a class="btn-dl" href="CRM_Busqueda_de_Trabajo_4TMS.xlsx" download>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Descargar el CRM (Excel)
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta" id="contacto">
+    <h2>Siguiente paso</h2>
+    <p>Hasta acá tienes la estructura para postular con foco y sonar como tú, no como una plantilla. Descarga tu kit en Word y sigue trabajándolo: ajústalo, complétalo y vuelve cuando lo necesites. Si quieres revisar tu caso en detalle —tu posicionamiento, tu CV o una transición—, conversémoslo en sesión.</p>
+    <p class="contact"><a href="mailto:yaelsescovich@fourtms.com" style="color:inherit;text-decoration:none">yaelsescovich@fourtms.com</a> · 4T Management Solutions · Santiago</p>
+    <button type="button" class="btn-word-lg" onclick="downloadWord()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Descargar mi kit en Word
+    </button>
+  </section>
+
+  <p class="foot">4T Management Solutions · Acompañamiento en búsqueda y transición profesional. Material de uso personal para el proceso de coaching.</p>
+
+</main>
+
+<script>
+  function grow(el){ el.style.height='auto'; el.style.height=(el.scrollHeight)+'px'; }
+  document.querySelectorAll('textarea.field').forEach(function(t){
+    t.addEventListener('input', function(){ grow(this); });
+    grow(t);
+  });
+
+  var fa = document.getElementById('frase-ancla');
+  function syncAnchor(){
+    var v = fa.value.trim();
+    document.querySelectorAll('.anchor-echo').forEach(function(e){
+      if(v){ e.textContent = v; e.classList.remove('is-empty'); }
+      else { e.textContent = e.getAttribute('data-empty') || '[Tu frase ancla]'; e.classList.add('is-empty'); }
+    });
+  }
+  fa.addEventListener('input', syncAnchor);
+  syncAnchor();
+
+  function copyTpl(btn){
+    var tpl = btn.closest('.tpl');
+    var pre = tpl.querySelector('pre');
+    var text = (pre ? pre.textContent : '').replace(/\u00a0/g,' ').replace(/\n{3,}/g,'\n\n').trim();
+    var lbl = btn.querySelector('.lbl') || btn;
+    function done(){ var o = lbl.textContent; lbl.textContent = 'Copiado'; btn.classList.add('ok'); setTimeout(function(){ lbl.textContent = o; btn.classList.remove('ok'); }, 1700); }
+    if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(text).then(done, function(){ fb(text, done); }); }
+    else { fb(text, done); }
+  }
+  function fb(text, done){
+    var ta = document.createElement('textarea'); ta.value = text;
+    ta.style.position='fixed'; ta.style.top='-9999px'; document.body.appendChild(ta); ta.focus(); ta.select();
+    try{ document.execCommand('copy'); done(); }catch(e){}
+    document.body.removeChild(ta);
+  }
+
+  var CHECK = [
+    "Adapté el CV y la carta a este rol específico.",
+    "El asunto del correo dice quién soy, no solo \u201cPostulación\u201d.",
+    "Mencioné algo concreto de la empresa, no un saludo genérico.",
+    "Cada logro tiene un resultado o un número (es afirmación, no juicio).",
+    "Mi frase ancla aparece clara en el resumen y en el correo.",
+    "Revisé la ortografía y que los nombres estén bien escritos.",
+    "El correo completo se lee en menos de un minuto.",
+    "Adjunté el CV y el archivo lleva mi nombre, no \u201cCV final v3\u201d.",
+    "Registré esta postulación en mi CRM con su próxima acción."
+  ];
+  (function(){
+    var cl = document.getElementById('checklist-list');
+    CHECK.forEach(function(t){
+      var l = document.createElement('label'); l.className='check';
+      var inp = document.createElement('input'); inp.type='checkbox';
+      var box = document.createElement('span'); box.className='check-box';
+      var txt = document.createElement('span'); txt.className='check-text'; txt.textContent = t;
+      l.appendChild(inp); l.appendChild(box); l.appendChild(txt); cl.appendChild(l);
+    });
+  })();
+
+  function esc(s){ return (s==null?'':String(s)).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+  function val(id){ var el=document.getElementById(id); return el ? (el.value||'').trim() : ''; }
+  function brk(s){ return esc(s).replace(/\n/g,'<br>'); }
+
+  var FOCO = [
+    {h:'En lo que eres bueno (tus talentos)'},
+    {id:'c1-talentos', q:'Mis 5 talentos principales'},
+    {id:'c1-fundar', q:'Cómo fundo cada talento (situación + resultado)'},
+    {h:'Lo que amas (tu energía)'},
+    {id:'c2-haria', q:'Qué haría aunque no me pagaran'},
+    {id:'c2-tiempo', q:'Qué me hace perder la noción del tiempo / sobre qué leo sin aburrirme'},
+    {id:'pasion', q:'Mi pasión, en una línea'},
+    {h:'Lo que el mundo necesita (tu aporte)'},
+    {id:'c3-huella', q:'Cómo quiero dejar huella y para quién'},
+    {id:'c3-necesidad', q:'Qué necesidad de una empresa resuelvo'},
+    {id:'mision', q:'Mi misión, en una línea'},
+    {h:'Por lo que te pueden pagar (tu mercado)'},
+    {id:'c4-rol', q:'Áreas o roles donde debería estar / posición que busco'},
+    {id:'c4-paso', q:'Dónde estoy hoy, primer paso y cuándo'},
+    {id:'profesion', q:'Mi profesión y vocación, en una línea'},
+    {h:'Mi foco'},
+    {id:'cierre', q:'Qué propósito me mueve hoy y qué necesito aprender o soltar'}
+  ];
+
+  function downloadWord(){
+    var nombre = val('nombre');
+    var frase = val('frase-ancla');
+    var logros = val('cv-logros');
+    var p = [];
+
+    p.push('<h1 style="font-family:Calibri,Arial,sans-serif;color:#22255A;margin:0 0 4px">Kit de búsqueda de trabajo</h1>');
+    p.push('<p style="color:#6b6e88;margin:0 0 18px;font-size:11pt">' + (nombre ? esc(nombre) + ' · ' : '') + '4T Management Solutions</p>');
+
+    p.push('<h2 style="color:#22255A;border-bottom:2px solid #D8A828;padding-bottom:4px;margin:18px 0 10px">1. Mi propósito y mi foco</h2>');
+    FOCO.forEach(function(f){
+      if(f.h){ p.push('<h3 style="color:#6FA52C;margin:14px 0 6px">'+esc(f.h)+'</h3>'); }
+      else {
+        var v = val(f.id);
+        p.push('<p style="margin:0 0 10px"><b style="color:#22255A">'+esc(f.q)+'</b><br>'+(v ? brk(v) : '<span style="color:#999">—</span>')+'</p>');
+      }
+    });
+    p.push('<p style="background:#fbf1d6;border-left:4px solid #D8A828;padding:10px 12px;margin:14px 0 0"><b style="color:#8a6a12">Mi frase ancla</b><br>'+(frase ? brk(frase) : '<span style="color:#999">(pendiente — defínela en el Paso 1)</span>')+'</p>');
+
+    p.push('<h2 style="color:#22255A;border-bottom:2px solid #D8A828;padding-bottom:4px;margin:22px 0 10px">2. Mis logros para el CV</h2>');
+    p.push('<p style="margin:0">'+(logros ? brk(logros) : '<span style="color:#999">—</span>')+'</p>');
+
+    document.querySelectorAll('.tpl').forEach(function(t){
+      var title = t.getAttribute('data-title') || 'Plantilla';
+      var pre = t.querySelector('pre');
+      var txt = pre ? pre.textContent.replace(/\n{3,}/g,'\n\n').trim() : '';
+      p.push('<h2 style="color:#22255A;border-bottom:2px solid #D8A828;padding-bottom:4px;margin:22px 0 10px">'+esc(title)+'</h2>');
+      p.push('<p style="font-family:Consolas,\'Courier New\',monospace;font-size:10.5pt;white-space:pre-wrap;background:#f6f7fb;border:1px solid #e4e6ef;padding:12px;margin:0">'+brk(txt)+'</p>');
+    });
+
+    p.push('<h2 style="color:#22255A;border-bottom:2px solid #D8A828;padding-bottom:4px;margin:22px 0 10px">Checklist de postulación</h2>');
+    p.push('<ul style="margin:0;padding-left:20px">'+CHECK.map(function(c){return '<li style="margin:4px 0">'+esc(c)+'</li>';}).join('')+'</ul>');
+
+    p.push('<p style="color:#6b6e88;font-size:9.5pt;margin:26px 0 0;border-top:1px solid #e4e6ef;padding-top:10px">Material de uso personal del proceso de coaching con Yael Sescovich · 4T Management Solutions. No se usa para difusión ni para ningún fin fuera del acompañamiento.</p>');
+
+    var head = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Kit de búsqueda de trabajo</title><style>body{font-family:Calibri,Arial,sans-serif;color:#2a2c4d;font-size:11pt;line-height:1.5}</style></head><body>";
+    var foot = "</body></html>";
+    var html = head + p.join('') + foot;
+
+    var blob = new Blob(['\ufeff', html], {type:'application/msword'});
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = (nombre ? 'Kit_Busqueda_' + nombre.replace(/\s+/g,'_') : 'Kit_Busqueda_de_Trabajo') + '.doc';
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    setTimeout(function(){ URL.revokeObjectURL(url); }, 1500);
+  }
+  window.downloadWord = downloadWord;
+</script>
+</body>
+</html>
